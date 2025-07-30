@@ -1,7 +1,7 @@
 <?php
 class Conexion{
     
-    function conecionBD(){
+    public static function conexionBD(){
         //datos de la BD
         $host ="localhost";
         $dbname = "mantenBodegas";
