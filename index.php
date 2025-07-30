@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php include_once("alertas.php");?>   
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Librería de bootstrap -->
@@ -15,9 +18,11 @@
         include_once("conexion/conexion.php");
         $conn = Cconexion::conexionBD();
     ?>
-
-    <h1>Listado Bodegas</h1>
     <div class="container">
+    <h1>Listado Bodegas</h1>
+    <br>
+    <a href="bodegasAgregar.php"><button type="button" class="btn btn-primary">Agregar Bodega</button></a>
+    
     <table class="table">
         <thead>
             <tr>
@@ -34,7 +39,7 @@
         <tbody>
             <?php
                 //formulo la Query
-                $sql = "SELECT id, nombre, direccion, dotacion, fecha, hora, estado FROM bodegas";
+                $sql = "SELECT id, nombre, direccion, dotacion, fecha, hora, estado FROM bodegas ORDER BY id";
                 //Genero la query
                 $stmt = $conn->query($sql);
 
@@ -58,7 +63,8 @@
                             
                             <th>$bodegaEstado</th>
                             <th>
-                                <button type='button' class='btn btn-primary'>Editar</button>
+                                <a href='bodegasModificar.php?id=$bodegaId'><button type='button' class='btn btn-primary'>Editar</button><a>
+                                <button type='button' class='btn btn-primary' onclick='ajaxEliminar(".'"'.$bodegaId.'"'.");'>Eliminar</button>
                             </th>
                         </tr>
                     ";
@@ -103,6 +109,21 @@
                 }
             });
         };
+        function ajaxEliminar(idBodega){
+            console.log("hola"+idBodega);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax/alertaEliminar.php',
+                data: { idBodega: idBodega },
+                success: function(respuesta) {
+                    $('#listaEncargados').html(respuesta);
+                    $('#modalEncargados').modal('show');
+                },
+                error: function() {
+                    $('#listaEncargados').html('<p>Error</p>');
+                    $('#modalEncargados').modal('show');
+                }
+            });
+        };
       
-
     </script>

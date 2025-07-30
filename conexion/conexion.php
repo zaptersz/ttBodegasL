@@ -1,5 +1,5 @@
 <?php
-class Conexion{
+class Cconexion{
     
     public static function conexionBD(){
         //datos de la BD
