@@ -8,20 +8,21 @@
     $bodegaNombre = $row['nombre'];
     $html = "
     
-      <div class='modal-headerv'>
-        <h5 class='modal-title'>Eliminar Bodega $idBodega</h5>
-        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+      <div class='modal-header bg-danger text-white'>
+        <h5 class='modal-title'><i class='bi bi-trash-fill'></i> Eliminar Bodega $idBodega</h5>
+        <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal' aria-label='cerrar'></button>
       </div>
       <div class='modal-body'>
-        <p>¿Está Seguro De Eliminar La Bodega $idBodega, con nombre $bodegaNombre? <br></p>
+        <p>¿Está Seguro De Eliminar La Bodega <strong>$bodegaNombre </strong>? <br></p>
         
-        <div class='alert alert-warning' role='alert'>
-            Esta acción no se puede deshacer.</p>
+        <div class='alert alert-warning d-flex aling-items-center' role='alert'>
+            <i class='bi bi-exclamation-triangle-fill'></i>  
+            <div>Esta acción <strong>no se puede deshacer.</strong></div>
         </div>
         
       </div>
       <div class='modal-footer'>
-        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+        <button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Cerrar</button>
         <a href='bodegasEliminar.php?id=$idBodega'><button type='button' class='btn btn-primary'>Eliminar</button></a>
       </div>
     ";

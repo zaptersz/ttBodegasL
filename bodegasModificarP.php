@@ -10,6 +10,10 @@
     $bodegaHora         = trim($_POST['hora']);
     $bodegaEstado       = trim($_POST['estado']);
 
+    //en caso que no se marco dotacion, se define como 0
+    if(!isset($_POST['dotacion']) || $_POST['dotacion'] == ''){
+        $bodegaDotacion = 0;
+    }
     
     $sql = "UPDATE bodegas  
             SET

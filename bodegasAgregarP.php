@@ -9,6 +9,11 @@
     $bodegaFecha        = trim($_POST['fecha']);
     $bodegaHora         = trim($_POST['hora']);
     
+    //en caso que no se marque dotacion, se difina con 0
+    if(!isset($_POST['dotacion']) || $_POST['dotacion'] == ''){
+        $bodegaDotacion = 0;
+    }
+
     $sql = "INSERT INTO bodegas (
                 id, 
                 nombre, 

@@ -22,13 +22,13 @@
         $html.= "<ul class='list-group'>";
         foreach ($encargados as $enc) {
             $html.= "<li class='list-group-item'>";
-            $html.= "<strong>rut: </strong> {$enc['run']}<br>";
+            $html.= "<strong>Rut: </strong> {$enc['run']}<br>";
             $html.= "<strong>Nombre: </strong> {$enc['nombre']} {$enc['apellido1']} {$enc['apellido2']}<br>";
             $html.= "<strong>Telefono: </strong> {$enc['telefono']}<br>";
             $html.= "<strong>Dirección: </strong> {$enc['direccion']}<br>";
             $html.= "</li>";
         }
-        $html.= "</ul>";
+        $html.= "</ul><br><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Cerrar</button>";
     }else{
         $html.= "No hay encargados registrados para esta bodega.";
 
