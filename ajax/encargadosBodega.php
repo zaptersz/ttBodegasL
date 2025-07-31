@@ -22,8 +22,10 @@
         $html.= "<ul class='list-group'>";
         foreach ($encargados as $enc) {
             $html.= "<li class='list-group-item'>";
-            $html.= "<strong>Nombre: </strong> {$enc['nombre']}<br>";
-            $html.= "<strong>Nombre: </strong> {$enc['telefono']}<br>";
+            $html.= "<strong>rut: </strong> {$enc['run']}<br>";
+            $html.= "<strong>Nombre: </strong> {$enc['nombre']} {$enc['apellido1']} {$enc['apellido2']}<br>";
+            $html.= "<strong>Telefono: </strong> {$enc['telefono']}<br>";
+            $html.= "<strong>Dirección: </strong> {$enc['direccion']}<br>";
             $html.= "</li>";
         }
         $html.= "</ul>";

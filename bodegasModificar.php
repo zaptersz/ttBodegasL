@@ -32,11 +32,8 @@
         ?>
         <div class="container-sm">
         <form action="bodegasModificarP.php" method="post">
-            <input type="hidden" id="idanterior" name="idanterior" value="<?php echo $bodegaId?>">
-            <div class="mb-3">
-                <label for="idBodega" class="form-label">Id</label>
-                <input type="text" class="form-control" id="idBodega" name="idBodega" value="<?php echo $bodegaId?>" aria-describedby="Id Del Container">
-            </div>
+            <input type="hidden" id="idBodega" name="idBodega" value="<?php echo $bodegaId?>">
+            
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $bodegaNombre?>">
@@ -61,6 +58,10 @@
                         $sqlEn = "SELECT run, nombre, apellido1, apellido2, idbodega FROM encargados WHERE idbodega is null OR idbodega = '$bodegaId' ORDER BY nombre;";
                         $stmt = $conn->query($sqlEn);
                         $encargados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        if (empty($encargados)){
+                            echo "
+                            <div class='alert alert-primary' role='alert'>No Hay Encargados Disponibles</div>";
+                        }
                         foreach ($encargados as $enc) {
                             $run = $enc['run']; 
                             $nombre = $enc['nombre']; 

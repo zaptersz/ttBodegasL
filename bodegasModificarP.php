@@ -2,8 +2,7 @@
     include_once("conexion/conexion.php");
     $conn = Cconexion::conexionBD();
 
-    $idanterior         = trim($_POST['idanterior']);
-    $bodegaId           = trim($_POST['idBodega']);
+    $bodegaId         = trim($_POST['idBodega']);
     $bodegaNombre       = trim($_POST['nombre']);
     $bodegaDireccion    = trim($_POST['direccion']);
     $bodegaDotacion     = trim($_POST['dotacion']);
@@ -14,19 +13,18 @@
     
     $sql = "UPDATE bodegas  
             SET
-                id = '$bodegaId', 
                 nombre = '$bodegaNombre', 
                 direccion = '$bodegaDireccion', 
                 dotacion = '$bodegaDotacion', 
                 fecha = '$bodegaFecha', 
                 hora = '$bodegaHora', 
                 estado = '$bodegaEstado'
-            WHERE id = '$idanterior'";
+            WHERE id = '$bodegaId'";
 
     $stmt = $conn->query($sql);
     
     //Bodega creaActualizada. ahora hay que desasignar los encargados para luego volverlos a asignar
-    $sqlQuitar = "UPDATE encargados SET idbodega = null WHERE idbodega = '$idanterior'";
+    $sqlQuitar = "UPDATE encargados SET idbodega = null WHERE idbodega = '$bodegaId'";
     $stmt = $conn->query($sqlQuitar);
  
     //ahora a asignar los encargados, en caso de que se haya selecionado al menos 1

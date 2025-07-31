@@ -8,8 +8,6 @@
     $bodegaDotacion     = trim($_POST['dotacion']);
     $bodegaFecha        = trim($_POST['fecha']);
     $bodegaHora         = trim($_POST['hora']);
-    $bodegaEstado       = trim($_POST['estado']);
-
     
     $sql = "INSERT INTO bodegas (
                 id, 
@@ -26,7 +24,7 @@
             '$bodegaDotacion', 
             '$bodegaFecha', 
             '$bodegaHora', 
-            '$bodegaEstado')";
+            '1')";
 
     $stmt = $conn->query($sql);
     echo $sql;

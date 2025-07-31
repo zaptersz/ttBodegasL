@@ -44,6 +44,10 @@
                         $sql = "SELECT run, nombre, apellido1, apellido2, idbodega FROM encargados WHERE idbodega is null;";
                         $stmt = $conn->query($sql);
                         $encargados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        if (empty($encargados)){
+                            echo "
+                            <div class='alert alert-primary' role='alert'>No Hay Encargados Disponibles</div>";
+                        }
                         foreach ($encargados as $enc) {
                             $run = $enc['run']; $nombre = $enc['nombre']; $apell1 = $enc['apellido1']; $apell2 = $enc['apellido2'];
                             echo "<input class='form-check-input' type='checkbox' role='switch' id='$run' name='encargados[]' value='$run'>";
@@ -62,14 +66,6 @@
             <div class="mb-3">
                 <label for="hora" class="form-label">Hora</label>
                 <input type="time" class="form-control" id="hora" name="hora">
-            </div>
-
-            <div class="mb-3">
-                <label for="estado" class="form-label">Estado</label>
-                <select class="form-select" aria-label="Estado" id="estado" name="estado">
-                    <option selected value="1">Activada</option>
-                    <option value="0">Desactivada</option>
-                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Agregar</button>

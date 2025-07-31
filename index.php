@@ -22,7 +22,17 @@
     <h1>Listado Bodegas</h1>
     <br>
     <a href="bodegasAgregar.php"><button type="button" class="btn btn-primary">Agregar Bodega</button></a>
-    
+    <br>
+    <br>
+
+    <div class="container">
+        <h2>Filtro Estado</h2>
+            <select id="filtroEstado" class="form-select form-select-lg mb-3" aria-label="Filtrar Estado" onchange="ajaxFiltro();">
+                <option selected value= "">Todos</option>
+                <option value="1">Activadas</option>
+                <option value="0">Desactivadas</option>
+            </select>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -36,7 +46,7 @@
                 <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
             </tr>
-        <tbody>
+        <tbody id="bodegaCuerpo">
             <?php
                 //formulo la Query
                 $sql = "SELECT id, nombre, direccion, dotacion, fecha, hora, estado FROM bodegas ORDER BY id";
@@ -89,6 +99,13 @@
         </div>
         </div>
 
+        <div class="modal fade" tabindex="-1" id="modalAlerta">
+            <div class="modal-dialog">
+                <div class="modal-content" id="eliminarAlerta">
+                </div>
+        </div>
+        </div>
+
 </body>
 </html>
 
@@ -110,18 +127,38 @@
             });
         };
         function ajaxEliminar(idBodega){
-            console.log("hola"+idBodega);
+            console.log("hola - llevo"+idBodega);
             $.ajax({
                 type: 'POST',
                 url: 'ajax/alertaEliminar.php',
                 data: { idBodega: idBodega },
                 success: function(respuesta) {
-                    $('#listaEncargados').html(respuesta);
-                    $('#modalEncargados').modal('show');
+                    console.log("hola "+respuesta)
+                    $('#eliminarAlerta').html(respuesta);
+                    $('#modalAlerta').modal('show');
                 },
                 error: function() {
-                    $('#listaEncargados').html('<p>Error</p>');
-                    $('#modalEncargados').modal('show');
+                    $('#eliminarAlerta').html('<p>Error</p>');
+                    $('#modalAlerta').modal('show');
+                }
+            });
+        };
+
+        function ajaxFiltro(idBodega){
+            var id_filtro = document.getElementById("filtroEstado").value;
+            console.log("hola - llevo"+idBodega);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax/bodegasFiltro.php',
+                data: { id_filtro: id_filtro },
+                success: function(respuesta) {
+                    console.log("hola "+respuesta)
+                    $('#bodegaCuerpo').html(respuesta);
+                 
+                },
+                error: function() {
+                    $('#bodegaCuerpo').html('<p>Error</p>');
+                
                 }
             });
         };
