@@ -45,36 +45,38 @@
 
                         <div class="mb-3">
                             <label for="" class="form-floating">Encargados De la Nueva Bodega</label>
+                            <div class="border rounded p-3 bg-light mt-3 w-75 mx-auto">
                             <br>
-                            <div class="form-check form-switch">
-                                <?php
-                                    include_once("conexion/conexion.php");
-                                    $conn = Cconexion::conexionBD();
-                                    $sql = "SELECT run, nombre, apellido1, apellido2, idbodega FROM encargados WHERE idbodega is null;";
-                                    $stmt = $conn->query($sql);
-                                    $encargados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    if (empty($encargados)){
-                                        echo "
-                                        <div class='alert alert-primary' role='alert'>No Hay Encargados Disponibles</div>";
-                                    }
-                                    foreach ($encargados as $enc) {
-                                        $run = $enc['run']; $nombre = $enc['nombre']; $apell1 = $enc['apellido1']; $apell2 = $enc['apellido2'];
-                                        echo "<input class='form-check-input' type='checkbox' role='switch' id='$run' name='encargados[]' value='$run'>";
-                                        echo "<label class='form-check-label' for='switchCheckDefault'>$nombre $apell1 $apell2</label><br>";
-                                    } ?>
-                                
+                                <div class="form-check form-switch">
+                                    <?php
+                                        include_once("conexion/conexion.php");
+                                        $conn = Cconexion::conexionBD();
+                                        $sql = "SELECT run, nombre, apellido1, apellido2, idbodega FROM encargados WHERE idbodega is null;";
+                                        $stmt = $conn->query($sql);
+                                        $encargados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        if (empty($encargados)){
+                                            echo "
+                                            <div class='alert alert-primary' role='alert'>No Hay Encargados Disponibles</div>";
+                                        }
+                                        foreach ($encargados as $enc) {
+                                            $run = $enc['run']; $nombre = $enc['nombre']; $apell1 = $enc['apellido1']; $apell2 = $enc['apellido2'];
+                                            echo "<input class='form-check-input' type='checkbox' role='switch' id='$run' name='encargados[]' value='$run'>";
+                                            echo "<label class='form-check-label' for='switchCheckDefault'>$nombre $apell1 $apell2</label><br>";
+                                        } ?>
+                                    
+                                </div>
                             </div>
                         
                         </div>
 
                         <div class="mb-3">
                             <label for="fecha" class="form-floating">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha">
+                            <input type="date" class="form-control" id="fecha" name="fecha" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="hora" class="form-floating">Hora</label>
-                            <input type="time" class="form-control" id="hora" name="hora">
+                            <input type="time" class="form-control" id="hora" name="hora" required>
                         </div>
 
                         <button type="submit" class="btn btn-success w-100">Agregar</button>
