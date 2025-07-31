@@ -14,20 +14,35 @@
     if(!isset($_POST['dotacion']) || $_POST['dotacion'] == ''){
         $bodegaDotacion = 0;
     }
+
+    //En caso de no mandar fecha
+    if(!isset($_POST['fecha']) || empty($bodegaFecha)){
+        $bodegaFecha = "fecha = null,";
+    }else{
+        $bodegaFecha = "fecha = '$bodegaFecha',";
+    }
+
+    //En caso de no mandar hora
+    if(!isset($_POST['hora']) || empty($bodegaHora)){
+        $bodegaHora = "hora = null,";
+    }else{
+        $bodegaHora = "hora = '$bodegaHora',";
+    }
     
+
     $sql = "UPDATE bodegas  
             SET
                 nombre = '$bodegaNombre', 
                 direccion = '$bodegaDireccion', 
                 dotacion = '$bodegaDotacion', 
-                fecha = '$bodegaFecha', 
-                hora = '$bodegaHora', 
+                $bodegaFecha 
+                $bodegaHora 
                 estado = '$bodegaEstado'
             WHERE id = '$bodegaId'";
 
     $stmt = $conn->query($sql);
     
-    //Bodega creaActualizada. ahora hay que desasignar los encargados para luego volverlos a asignar
+    //Bodega Actualizada. ahora hay que desasignar los encargados para luego volverlos a asignar porque no se sabe cuantos se han desmarcado
     $sqlQuitar = "UPDATE encargados SET idbodega = null WHERE idbodega = '$bodegaId'";
     $stmt = $conn->query($sqlQuitar);
  
@@ -36,7 +51,8 @@
         //verifico que se marcaron por lo menos 1 encargado
         $cont = 0;
         $condicion = "";
-        //armo la condicion para modificar los encargados y enalzarlos a la bodega
+        //armo la condicion para modificar los encargados y enlazarlos a la bodega
+        //anido la condicion para no realizar query por cada encargado y asi no saturar
         foreach ($_POST['encargados'] as $encargado) {
             //el primer campo no lleva ","
             if($cont == 0)

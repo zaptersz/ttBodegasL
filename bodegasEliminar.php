@@ -4,7 +4,7 @@
     $conn = Cconexion::conexionBD();
     $bodegaId = trim($_GET['id']);
 
-    //priemro hay que desligar losencargados
+    //primero hay que desligar los encargados
     $sqlQuitar = "UPDATE encargados SET idbodega = null WHERE idbodega = '$bodegaId'";
     $stmt = $conn->query($sqlQuitar);
     

@@ -32,14 +32,14 @@
             '1')";
 
     $stmt = $conn->query($sql);
-    echo $sql;
 
     //Bodega creada. ahora hay que asignar los encargados
     if (isset($_POST['encargados'])){
         //verifico que se marcaron por lo menos 1 encargado
         $cont = 0;
         $condicion = "";
-        //armo la condicion para modificar los encargados y enalzarlos a la bodega
+        //armo la condicion para modificar los encargados y enlazarlos a la bodega
+        //anido la condicion para no realizar query por cada encargado y asi no saturar
         foreach ($_POST['encargados'] as $encargado) {
             //el primer campo no lleva ","
             if($cont == 0)

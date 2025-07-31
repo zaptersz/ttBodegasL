@@ -51,10 +51,12 @@
                                     <?php
                                         include_once("conexion/conexion.php");
                                         $conn = Cconexion::conexionBD();
+                                        //solo muestro Encargados Sin bodegas
                                         $sql = "SELECT run, nombre, apellido1, apellido2, idbodega FROM encargados WHERE idbodega is null;";
                                         $stmt = $conn->query($sql);
                                         $encargados = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         if (empty($encargados)){
+                                            //si no hay encargados
                                             echo "
                                             <div class='alert alert-primary' role='alert'>No Hay Encargados Disponibles</div>";
                                         }
@@ -96,6 +98,7 @@
         const idInput = document.getElementById("idBodega");
         const nombreInput = document.getElementById("nombre");
         if (idInput.value.length > 5) {
+            //en caso que intenten forzar agregar campo mayo a 5 caracteres
             event.preventDefault();
             alert("El campo ID Bodega no puede tener más de 5 caracteres.");
         }else if (nombreInput.value.length > 100) {
